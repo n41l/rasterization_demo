@@ -19,13 +19,33 @@ public:
         float B = fca(m_b.x(), m_b.y());
         float C = fab(m_c.x(), m_c.y());
 
+        float aNBase = fbc(minX(), minY());
+        float bNBase = fca(minX(), minY());
+        float cNBase = fab(minX(), minY());
+
+        float aN = aNBase;
+        float bN = bNBase;
+        float cN = cNBase;
+
+        float fbcA = (m_b.y() - m_c.y());
+        float fcaA = (m_c.y() - m_a.y());
+        float fabA = (m_a.y() - m_b.y());
+
+        float fbcB = (m_c.x() - m_b.x());
+        float fcaB = (m_a.x() - m_c.x());
+        float fabB = (m_b.x() - m_a.x());
+
         for (int y = (int)minY(); y <= (int)maxY(); ++y) {
             for (int x = (int)minX(); x <= (int)maxX(); ++x) {
-                float a = fbc(x, y) / A;
-                float b = fca(x, y) / B;
-                // precision is not enough
-                // float c = 1.0f - a - b;
-                float c = fab(x, y) / C;
+//                float a = fbc(x, y) / A;
+//                float b = fca(x, y) / B;
+//                // precision is not enough
+//                // float c = 1.0f - a - b;
+//                float c = fab(x, y) / C;
+
+                float a = aN / A;
+                float b = bN / B;
+                float c = cN / C;
 
                 if (a >= 0 && b >= 0 && c >=0) {
                     if ((a > 0 || A * fbc(-1, -1) > 0) &&
@@ -35,7 +55,14 @@ public:
                         image[x][y] = color_a() * a + color_b() * b + color_c() * c;
                     }
                 }
+
+                aN += fbcA;
+                bN += fcaA;
+                cN += fabA;
             }
+            aN = aNBase + (y - minY()) * fbcB;
+            bN = bNBase + (y - minY()) * fcaB;
+            cN = cNBase + (y - minY()) * fabB;
         }
     }
 
