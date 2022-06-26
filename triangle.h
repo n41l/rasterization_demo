@@ -9,7 +9,9 @@
 
 class Triangle {
 public:
-    Triangle(Vec2_f a, Vec2_f b, Vec2_f c) : m_a(a), m_b(b), m_c(c) {};
+    Triangle(Vec2_f a, Vec2_f b, Vec2_f c, Color colors[3]) : m_a(a), m_b(b), m_c(c) {
+        m_colors = colors;
+    };
 
     template <size_t rows, size_t cols>
     void draw(Color (&image)[rows][cols]) {
@@ -30,11 +32,23 @@ public:
                         (b > 0 || B * fca(-1, -1) > 0) &&
                         (c > 0 || C * fab(-1, -1) > 0)
                     ) {
-                        image[x][y] = Color (1, 0, 0);
+                        image[x][y] = color_a() * a + color_b() * b + color_c() * c;
                     }
                 }
             }
         }
+    }
+
+    Color color_a() {
+        return m_colors[0];
+    }
+
+    Color color_b() {
+        return m_colors[1];
+    }
+
+    Color color_c() {
+        return m_colors[2];
     }
 
     float minX() {
@@ -78,6 +92,7 @@ private:
     Vec2_f m_a;
     Vec2_f m_b;
     Vec2_f m_c;
+    Color *m_colors;
 };
 
 #endif //RASTERIZATION_DEMO_TRIANGLE_H

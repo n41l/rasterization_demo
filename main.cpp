@@ -25,7 +25,8 @@ int main() {
     l3.draw<imageWidth, imageHeight>(image);
     l4.draw<imageWidth, imageHeight>(image);
 
-    Triangle t1 = Triangle(Vec2_f(100, 100), Vec2_f(150, 150), Vec2_f(50, 220));
+    Color triangleColor[3] = {Color(1, 0, 0), Color(0, 1, 0), Color(0, 0, 1)};
+    Triangle t1 = Triangle(Vec2_f(100, 100), Vec2_f(150, 150), Vec2_f(50, 220), triangleColor);
     t1.draw(image);
 
     for (int j = imageHeight - 1; j >= 0; --j) {
