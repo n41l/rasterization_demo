@@ -42,6 +42,8 @@ private:
     T m_v[2];
 };
 
+using Vec2_f = Vec2<float>;
+
 template <typename T>
 class Vec3 {
 public:

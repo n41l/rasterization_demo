@@ -1,6 +1,7 @@
 #include <iostream>
 #include "math.h"
 #include "line.h"
+#include "triangle.h"
 
 int main() {
 
@@ -23,6 +24,9 @@ int main() {
     l2.draw<imageWidth, imageHeight>(image);
     l3.draw<imageWidth, imageHeight>(image);
     l4.draw<imageWidth, imageHeight>(image);
+
+    Triangle t1 = Triangle(Vec2_f(100, 100), Vec2_f(150, 150), Vec2_f(50, 220));
+    t1.draw(image);
 
     for (int j = imageHeight - 1; j >= 0; --j) {
         for (int i = 0; i < imageWidth; ++i) {
